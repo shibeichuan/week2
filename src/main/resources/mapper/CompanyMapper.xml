@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bawei.dao.CompanyDao">
+	<select id="selects" resultType="com.bawei.entity.Company">
+		select * from company 
+		<where>
+			<if test="id!=null and id!=0">
+				id=${id}
+			</if>
+			<if test="keyword!=null and keyword!=''">
+				and keyword like '%${keyword}%'
+			</if>
+			<if test="message!=null and message!=''">
+				and message like '%${message}%'
+			</if>
+			<if test="goods!=null and goods!=''">
+				and goods like '%${goods}%'
+			</if>
+			<if test="address!=null and address!=''">
+				and address like '%${address}%'
+			</if>
+			<if test="minmoney!=null and minmoney!=0">
+				and money>=${minmoney}
+			</if>
+			<if test="maxmoney!=null and maxmoney!=''">
+				and money&lt;=${maxmoney}
+			</if>
+			<if test="startdate!=null and startdate!=''">
+				and createdate>=${startdate}
+			</if>
+			<if test="enddate!=null and enddate!=''">
+				and createdate&lt;=${enddate}
+			</if>
+			<if test="type!=null and type!=''">
+				and type like '%${type}%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectByid" resultType="com.bawei.entity.Company">
+		select * from company where id=${id}
+	</select>
+	
+	<update id="doUpdate">
+		update company 
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="id!=null and id!=0">
+				id=#{id},
+			</if>
+			<if test="keyword!=null and keyword!=''">
+				keyword=#{keyword},
+			</if>
+			<if test="message!=null and message!=''">
+				message=#{message},
+			</if>
+			<if test="goods!=null and goods!=''">
+				goods=#{goods},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="money!=null and money!=0">
+				money=#{money},
+			</if>
+			<if test="time!=null and time!=''">
+				time=#{time},
+			</if>
+			<if test="createdate!=null and createdate!=''">
+				createdate=#{createdate},
+			</if>
+			<if test="type!=null and type!=''">
+				type=#{type},
+			</if>
+			<if test="beizhu!=null and beizhu!=''">
+				beizhu=#{beizhu},
+			</if>
+		</trim>
+	</update>
+	
+	<insert id="insert">
+		insert into company values(null,#{keyword},#{message},#{name},#{goods},#{address},#{money},#{createdate},#{type},#{time},#{beizhu})
+	</insert>
+</mapper>
